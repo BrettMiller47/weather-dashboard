@@ -1,0 +1,5 @@
+header {
+    background: linear-gradient(to right, blue,purple);
+    color: white;
+    min-height: 55px;
+}
