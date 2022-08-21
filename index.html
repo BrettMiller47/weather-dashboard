@@ -16,8 +16,12 @@
         <h1 class="p-0 m-0 text-center">Weather Dashboard</h1>
     </header>
     <main class="row">
-        <section class="col-lg-3 border border-black">Search for a City:
-
+        <section class="col-lg-3 border border-black">
+            <h3>Search for a City:</h3> 
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="San Diego" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 w-100" type="submit">Search</button>
+            </form>
         </section>
         <section class="col-lg-9 container-fluid">
             <div class="row bg-black">
@@ -26,52 +30,53 @@
                 </div>
                 <div class="col-12 border-dark">
                     <h3>5-Day Forecast</h3>
-                    <div class="row justify-content-around">
-                        <div class="col-md-2 card">
-                            <ul id="day-1" class="list-group list-group-flush">
-                                <li class="list-group-item">M/D/YYYY</li>
-                                <li class="list-group-item">Picture</li>
-                                <li class="list-group-item">Temp: </li>
-                                <li class="list-group-item">Wind: </li>
-                                <li class="list-group-item">Humidity: </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2 card">
-                            <ul id="day-2" class="list-group list-group-flush">
-                                <li class="list-group-item">M/D/YYYY</li>
-                                <li class="list-group-item">Picture</li>
-                                <li class="list-group-item">Temp: </li>
-                                <li class="list-group-item">Wind: </li>
-                                <li class="list-group-item">Humidity: </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2 card">
-                            <ul id="day-3" class="list-group list-group-flush">
-                                <li class="list-group-item">M/D/YYYY</li>
-                                <li class="list-group-item">Picture</li>
-                                <li class="list-group-item">Temp: </li>
-                                <li class="list-group-item">Wind: </li>
-                                <li class="list-group-item">Humidity: </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2 card">
-                            <ul id="day-4" class="list-group list-group-flush">
-                                <li class="list-group-item">M/D/YYYY</li>
-                                <li class="list-group-item">Picture</li>
-                                <li class="list-group-item">Temp: </li>
-                                <li class="list-group-item">Wind: </li>
-                                <li class="list-group-item">Humidity: </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2 card">
-                            <ul id="day-5" class="list-group list-group-flush">
-                                <li class="list-group-item">M/D/YYYY</li>
-                                <li class="list-group-item">Picture</li>
-                                <li class="list-group-item">Temp: </li>
-                                <li class="list-group-item">Wind: </li>
-                                <li class="list-group-item">Humidity: </li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="row p-0 m-0 justify-content-evenly justify-content-start">
+                    <div class="col-md-2 card">
+                        <ul id="day-1" class="list-group list-group-flush">
+                            <li class="list-group-item">M/D/YYYY</li>
+                            <li class="list-group-item">Picture</li>
+                            <li class="list-group-item">Temp: </li>
+                            <li class="list-group-item">Wind: </li>
+                            <li class="list-group-item">Humidity: </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 card">
+                        <ul id="day-2" class="list-group list-group-flush">
+                            <li class="list-group-item">M/D/YYYY</li>
+                            <li class="list-group-item">Picture</li>
+                            <li class="list-group-item">Temp: </li>
+                            <li class="list-group-item">Wind: </li>
+                            <li class="list-group-item">Humidity: </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 card">
+                        <ul id="day-3" class="list-group list-group-flush">
+                            <li class="list-group-item">M/D/YYYY</li>
+                            <li class="list-group-item">Picture</li>
+                            <li class="list-group-item">Temp: </li>
+                            <li class="list-group-item">Wind: </li>
+                            <li class="list-group-item">Humidity: </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 card">
+                        <ul id="day-4" class="list-group list-group-flush">
+                            <li class="list-group-item">M/D/YYYY</li>
+                            <li class="list-group-item">Picture</li>
+                            <li class="list-group-item">Temp: </li>
+                            <li class="list-group-item">Wind: </li>
+                            <li class="list-group-item">Humidity: </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 card">
+                        <ul id="day-5" class="list-group list-group-flush">
+                            <li class="list-group-item">M/D/YYYY</li>
+                            <li class="list-group-item">Picture</li>
+                            <li class="list-group-item">Temp: </li>
+                            <li class="list-group-item">Wind: </li>
+                            <li class="list-group-item">Humidity: </li>
+                        </ul>
+                    </div>
                     </div>
                 </div>
             </div>
