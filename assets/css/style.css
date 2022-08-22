@@ -3,3 +3,8 @@ header {
     color: white;
     min-height: 55px;
 }
+
+.custom-forecast-card {
+    background: rgb(28, 46, 144);
+    color: white;
+}
