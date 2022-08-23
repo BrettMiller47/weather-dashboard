@@ -26,32 +26,46 @@ function checkConditions(event) {
         // update local storage
         updateLocalStorage(userInput);
         // update search history
-        updateSearchHistoryButtons(userInput);
+        updateSearchHistory(userInput);
+        // create search history buttons
+        //updateHistoryButtons();
         // Get the new data
         getApiData(userInput);
     }
 }
 
-
-updateLocalStorage('item-1');
-// function which saves a new locationName to a locally stored array 'searchHistory' where key: value == locationName: nSearches
+// function which updates (or creates) a localStorage object 'searchHistory' where key: value == locationName: nSearches
 function updateLocalStorage(locationName) {
 
-    // If there is no 'searchHistory' item in localStorage... (i.e. this is the first successful search)
-        // save a 'searchHistory' array in localStorage with the locationName as the first indexed item 
-    // else
-        // if the locationName is already in searchHistory...
-            // add locationName to searchHistory with a value of 1 (representing nSearches)
-        // if the locationName is NOT in searchHistory..
-            // add 1 to the value (representing nSearches) where the key=locationName
+    var searchHistory = JSON.parse(localStorage.getItem('searchHistory'))
+
+    // If searchHistory is not found in localStorage...
+    if (searchHistory == null) {
+        // add searchHistory[locationName] = 1 to local storage
+        var newDict = {};
+        newDict[locationName] = 1;
+        var newJsonDict = JSON.stringify(newDict);
+        localStorage.setItem('searchHistory', newJsonDict);
+    } else {
+        // if the locationName is in searchHistory..
+        if (locationName in searchHistory) {
+            // add 1 to locationName's existing search count
+            searchHistory[locationName] = searchHistory[locationName] + 1;
+            // update localStorage
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        }
+        else {
+            // add locationName to searchHistory with a search count of 1
+            searchHistory[locationName] = 1;
+            // update localStorage
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        }
+    }
 }
 
 // function which dynamically adds buttons to the DOM for the most frequent searches
-function updateSearchHistoryButtons() {
-    // declare a variable for nBtn to dynamically create
+function updateSearchHistory() {
     
-    // //var arrayFromStroage = JSON.parse(localStorage.getItem("name"));
-    // //var arrayLength = arrayFromStroage.length;
     // parse the 'searchHistory' array stored in localStorage
     
     var maxNumBtn = 8;
@@ -69,7 +83,7 @@ function updateSearchHistoryButtons() {
         getLowValueIndex(buttons);
 }
 
-// function to return the first index of the lowest value in an arrayOfNumbers
+// function which returns the first index of the lowest value in an arrayOfNumbers
 function getLowValueIndex(arrayOfNumbers) {
 
     // if arrayOfNumbers was empty return nothing
@@ -93,7 +107,6 @@ function getLowValueIndex(arrayOfNumbers) {
         return indexLow;        
     }
 }
-
 
 // function which gathers and manipulates API data for today and the subsequent 5-day forecast
 function getApiData(city) {
