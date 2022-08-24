@@ -51,60 +51,22 @@ function updateLocalStorage(locationName) {
         if (locationName in searchHistory) {
             // add 1 to locationName's existing search count
             searchHistory[locationName] = searchHistory[locationName] + 1;
-            // update localStorage
-            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         }
         else {
             // add locationName to searchHistory with a search count of 1
             searchHistory[locationName] = 1;
-            // update localStorage
+        }
+        // sort searchHistory such that highest searchCount values are the first indexed keys
+        bubbleSortHighToLow(searchHistory);
+        // update localStorage
             localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        }
     }
 }
 
-// function which dynamically adds buttons to the DOM for the most frequent searches
-function updateSearchHistory() {
-    
-    // parse the 'searchHistory' array stored in localStorage
-    
-    // for each key in localStorage...
-        // if floorSearches is less than the current key's (location) searches
-            
-            // if fewer keys than the max number of buttons have been checked...
-                // add current key to the array of buttons
-                
-            // if floorSearches add the current key to the
-
-        // re-calculate floorSearches
-        getLowValueIndex(buttons);
-}
-
-// function which returns the first index of the lowest value in an arrayOfNumbers
-function getLowValueIndex(arrayOfNumbers) {
-
-    // if arrayOfNumbers was empty return nothing
-    if (arrayOfNumbers.length == 0) {
-        return;
-    } else {
-        // for each value in the arrayOfNumbers, set lowVal = lowest value checked so far
-        for (let i = 0; i < arrayOfNumbers.length; i++) {
-            let indexedVal = arrayOfNumbers[i];
-            // If the first element...
-            if (i == 0) {
-                let lowVal = indexedVal;
-            }
-            // If NOT the first element and the value is lower than the lowest value checked so far...
-            else if (indexedVal < lowVal) {
-                let lowVal = indexedVal;
-            }
-        }
-        // return the first index position of the lowest value in arrayOfNumbers
-        let indexLow = arrayOfNumbers.indexOf(lowVal);
-        return indexLow;        
-    }
-}
-
+/**
+ * Gathers and manipulates the API data for today and the subsequent 5-day forecast
+ * @param {string} city - The city used to filter the API data. 
+ */
 // function which gathers and manipulates API data for today and the subsequent 5-day forecast
 function getApiData(city) {
     let key = '330cb464329e41999c31c32720f441af';
@@ -124,6 +86,12 @@ function getApiData(city) {
         });
 }
 
+/**
+ * Determines if the city's name is an acceptable string.
+ * @param {string} cityName 
+ * @returns {boolean} true - Acceptable city Name
+ * @returns {boolean} false - Unacceptable city Name
+ */
 // function which returns a boolean value where true=Acceptable and false=Unacceptable 
 function isAcceptableCity(cityName) {
     // If no cityName...
@@ -142,7 +110,9 @@ function isAcceptableCity(cityName) {
     }
 }
 
-// function which removes all elements with a class='.error'
+/**
+ * Removes all elements with class='.error'
+ */
 function removeErrorMessages() {
     // Select all elements with class='.error' from the DOM
     let errors = document.querySelectorAll('.error');
@@ -151,4 +121,32 @@ function removeErrorMessages() {
     errors.forEach(error => {
         error.remove();
     });     
+}
+
+/**
+* Swap two elements in an array.
+* @param {array} arr - The original array.
+* @param {number} xIdx - The index of the first element to swap.
+* @param {number} yIdx - The index of the second element to swap..
+*/
+function swap(arr, xIdx, yIdx) {
+    var temp = arr[xIdx];
+    arr[xIdx] = arr[yIdx];
+    arr[yIdx] = temp;
+}
+
+/**
+ * Sorts a numerical array from High to Low.
+ * @param {array} arr - The original array.
+ */
+function bubbleSortHighToLow(arr) {
+    
+    // For each indexed element in 
+    for (let i = 0; i < arr.length; i++) {
+        // loop through each remaining element in the array
+        for (let j = i + 1; j < arr.length; j++)
+            if (arr[i] < arr[j]) {
+                swap(arr, i, j);
+            } 
+    }
 }
