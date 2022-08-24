@@ -19,7 +19,7 @@ function checkConditions(event) {
     removeErrorMessages();
     
     // Prompt the user with error messages until an acceptable response is found
-    var userInput = document.querySelector('#city').value;    
+    let userInput = document.querySelector('#city').value;    
     
     // If userInput is acceptable...
     if (isAcceptableCity(userInput)) {
@@ -37,14 +37,14 @@ function checkConditions(event) {
 // function which updates (or creates) a localStorage object 'searchHistory' where key: value == locationName: nSearches
 function updateLocalStorage(locationName) {
 
-    var searchHistory = JSON.parse(localStorage.getItem('searchHistory'))
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'))
 
     // If searchHistory is not found in localStorage...
     if (searchHistory == null) {
         // add searchHistory[locationName] = 1 to local storage
-        var newDict = {};
+        let newDict = {};
         newDict[locationName] = 1;
-        var newJsonDict = JSON.stringify(newDict);
+        let newJsonDict = JSON.stringify(newDict);
         localStorage.setItem('searchHistory', newJsonDict);
     } else {
         // if the locationName is in searchHistory..
@@ -68,9 +68,6 @@ function updateSearchHistory() {
     
     // parse the 'searchHistory' array stored in localStorage
     
-    var maxNumBtn = 8;
-    var buttons = [];
-    var floorSearches = 0;
     // for each key in localStorage...
         // if floorSearches is less than the current key's (location) searches
             
@@ -91,28 +88,27 @@ function getLowValueIndex(arrayOfNumbers) {
         return;
     } else {
         // for each value in the arrayOfNumbers, set lowVal = lowest value checked so far
-        for (var i = 0; i < arrayOfNumbers.length; i++) {
-            var indexedVal = arrayOfNumbers[i];
+        for (let i = 0; i < arrayOfNumbers.length; i++) {
+            let indexedVal = arrayOfNumbers[i];
             // If the first element...
             if (i == 0) {
-                var lowVal = indexedVal;
+                let lowVal = indexedVal;
             }
             // If NOT the first element and the value is lower than the lowest value checked so far...
             else if (indexedVal < lowVal) {
-                lowVal = indexedVal;
+                let lowVal = indexedVal;
             }
         }
         // return the first index position of the lowest value in arrayOfNumbers
-        var indexLow = arrayOfNumbers.indexOf(lowVal);
+        let indexLow = arrayOfNumbers.indexOf(lowVal);
         return indexLow;        
     }
 }
 
 // function which gathers and manipulates API data for today and the subsequent 5-day forecast
 function getApiData(city) {
-    
-    var key = '330cb464329e41999c31c32720f441af';
-    var requestUrl = 'https://api.weatherbit.io/v2.0/forecast/daily/?units=i&city=' + city + '&key=' + key;
+    let key = '330cb464329e41999c31c32720f441af';
+    let requestUrl = 'https://api.weatherbit.io/v2.0/forecast/daily/?units=i&city=' + city + '&key=' + key;
 
     fetch(requestUrl)
         .then(function (response) {
@@ -130,12 +126,11 @@ function getApiData(city) {
 
 // function which returns a boolean value where true=Acceptable and false=Unacceptable 
 function isAcceptableCity(cityName) {
-    cityName.trim();
     // If no cityName...
     if (cityName == "") {
         // dynamically add the error message to the DOM underneath the search header
-        var searchHeaderEl = document.querySelector('#search-header'); 
-        var searchErrorEl = document.createElement('p');
+        let searchHeaderEl = document.querySelector('#search-header'); 
+        let searchErrorEl = document.createElement('p');
         searchErrorEl.setAttribute('class', 'error text-danger m-0');
         searchErrorEl.textContent = 'Error: Please enter a city name.';
         searchHeaderEl.append(searchErrorEl);
@@ -149,9 +144,8 @@ function isAcceptableCity(cityName) {
 
 // function which removes all elements with a class='.error'
 function removeErrorMessages() {
-
     // Select all elements with class='.error' from the DOM
-    var errors = document.querySelectorAll('.error');
+    let errors = document.querySelectorAll('.error');
 
     // Remove each error from the DOM
     errors.forEach(error => {

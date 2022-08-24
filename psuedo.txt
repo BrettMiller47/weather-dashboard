@@ -1,5 +1,1 @@
-1) updateLocalStorage
-
-2) updateSearchHistoryButtons
-
-3) Search history to getApiData
+do I need to do indexLow??
