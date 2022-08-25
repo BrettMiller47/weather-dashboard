@@ -70,9 +70,6 @@ function updateLocalStorage(locationName) {
             // add locationName to searchHistory with a search count of 1
             searchHistory[locationName] = 1;
         }
-        // sort searchHistory such that highest searchCount values are the first indexed keys
-        //bubbleSortHighToLow(searchHistory);
-        // update localStorage
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     }
 }
@@ -81,7 +78,6 @@ function updateLocalStorage(locationName) {
  * Gathers and manipulates the API data for today and the subsequent 5-day forecast
  * @param {string} city - The city used to filter the API data. 
  */
-// function which gathers and manipulates API data for today and the subsequent 5-day forecast
 function getApiData(city) {
     let key = '330cb464329e41999c31c32720f441af';
     let requestUrl = 'https://api.weatherbit.io/v2.0/forecast/daily/?units=i&city=' + city + '&key=' + key;
@@ -119,32 +115,12 @@ function getApiData(city) {
                 }
         });
 }
-
-// function getImagePath(rainPercent, cloudPercent) {
-//     let weatherTypes = {
-//         'rainy': './assets/images/rain.webp',
-//         'cloudy': './assets/images/cloud.png',
-//         'partly-cloudy': './assets/images/partly-cloudy.png',
-//         'sunny': './assets/images/sun.png'
-//     }
-    
-//     // If >50% chance of rain...
-//     if (rainPercent >= .5) {
-//         // return the path for the rainy image
-//         return weatherTypes['rainy'];
-//     } else if (cloudPercent >= .75) {
-//         //return the path for the cloudy image
-//         return weatherTypes['cloudy'];
-//     } else if (cloudPercent >= .25) {
-//         //return the path for the partly-cloudy image
-//         return weatherTypes['partly-cloudy'];
-//     } else {
-//         //return the path for the sunny image
-//         return weatherTypes['sunny'];
-//     }
-// }
-
-// function to return the CSS class as a string depending on UV Index severity 
+ 
+/**
+ * Determines the appropriate CSS class depending on UV Index severity.
+ * @param {integer} uvIndex 
+ * @returns {string} low, medium, high, very-high, or extremely-high
+ */
 function getUvCssClass(uvIndex) {
     if (uvIndex <= 2) {
         return 'low';
@@ -201,7 +177,6 @@ function updateHistoryButtons() {
  * @returns {boolean} true - Acceptable city Name
  * @returns {boolean} false - Unacceptable city Name
  */
-// function which returns a boolean value where true=Acceptable and false=Unacceptable 
 function isAcceptableCity(cityName) {
     // If no cityName...
     if (cityName == "") {
@@ -230,32 +205,4 @@ function removeErrorMessages() {
     errors.forEach(error => {
         error.remove();
     });     
-}
-
-/**
-* Swap two elements in an array.
-* @param {array} arr - The original array.
-* @param {number} xIdx - The index of the first element to swap.
-* @param {number} yIdx - The index of the second element to swap..
-*/
-function swap(arr, xIdx, yIdx) {
-    var temp = arr[xIdx];
-    arr[xIdx] = arr[yIdx];
-    arr[yIdx] = temp;
-}
-
-/**
- * Sorts a numerical array from High to Low.
- * @param {array} arr - The original array.
- */
-function bubbleSortHighToLow(arr) {
-    
-    // For each indexed element in 
-    for (let i = 0; i < arr.length; i++) {
-        // loop through each remaining element in the array
-        for (let j = i + 1; j < arr.length; j++)
-            if (arr[i] < arr[j]) {
-                swap(arr, i, j);
-            } 
-    }
 }
