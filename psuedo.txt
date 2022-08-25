@@ -1,1 +1,11 @@
-do I need to do indexLow??
+date section
+---- update 5-day forecast dates
+
+
+getApiData()
+---- update images
+---- call updateHistoryButtons()
+
+
+updateHistoryButtons()
+---- create a button for each element in the localStorage object 'searchHistory'

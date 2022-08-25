@@ -1,10 +1,10 @@
 // ---- Date section ----
-var today = new Date();
-var currMonth = today.getMonth();
-var currDay = today.getDate();
-var currYear = today.getFullYear();
-var dateTodayText = '(' + currMonth + "/" + currDay + "/" + currYear + ')';
-var todayHeaderEl = document.querySelector('#today-header');
+const today = new Date();
+const currMonth = today.getMonth();
+const currDay = today.getDate();
+const currYear = today.getFullYear();
+const dateTodayText = '(' + currMonth + "/" + currDay + "/" + currYear + ')';
+const todayHeaderEl = document.querySelector('#today-header');
 todayHeaderEl.textContent = dateTodayText; 
 
 // ---- API & Dynamic DOM section ----
@@ -25,8 +25,6 @@ function checkConditions(event) {
     if (isAcceptableCity(userInput)) {
         // update local storage
         updateLocalStorage(userInput);
-        // update search history
-        updateSearchHistory(userInput);
         // create search history buttons
         updateHistoryButtons();
         // Get the new data
@@ -81,12 +79,31 @@ function getApiData(city) {
                 // Populate today's info
                 document.querySelector('#today-header').textContent = city + " " + dateTodayText;
                 
-                
-                // Populate the 5-day forecast info
+    
+                // temp, wind, UV, humidity
+                // loop through the first six days of API data
+                for (let i = 0; i < 6; i++){
+                    let temp = data['data'][i].temp;
+                    let wind = data['data'][i].wind_spd;
+                    let uv = data['data'][i].uv;
+                    let humidity = data['data'][i].rh;
+                    // If today...
+                    if (i == 0) {
+                        document.querySelector('#temp-today').textContent = 'Temp: ' + temp + '°F';
+                        document.querySelector('#wind-today').textContent = 'Wind: ' + wind + ' mph';
+                        document.querySelector('#uv-today').textContent = 'UV Index: ' + uv;
+                        document.querySelector('#humidity-today').textContent = 'Humidity: ' + humidity + ' %';
+                    } else {
+                        // update the 5-day forecast
+                        document.querySelector('#temp-' + i).textContent = 'Temp: ' + temp + '°F';
+                        document.querySelector('#wind-' + i).textContent = 'Wind: ' + wind + ' mph';
+                        document.querySelector('#humidity-' + i).textContent = 'Humidity: ' + humidity + ' %';
+                    }
+                }
         });
 }
 
-//------------------------------------------------------------------------
+// event listener for previously searched locations
 $('.btn-secondary').on('click', function () {
     let city = $(this).text();
     // update local storage
@@ -94,6 +111,7 @@ $('.btn-secondary').on('click', function () {
     getApiData(city);
 });
 
+//------------------------------------------------------------------------
 /// don't need to do this if search came from a button that are already displayed
 function updateHistoryButtons(vent) { 
     let rootEl = document.querySelector('#button-root');
@@ -101,8 +119,6 @@ function updateHistoryButtons(vent) {
     // create a button element with textContent=city and 
 
 }
-
-
 //------------------------------------------------------------------------
 
 /**
