@@ -13,7 +13,7 @@ searchBtnEl.addEventListener('click', checkConditions);
 
 // function to getApiData IF all input criteria is acceptable
 function checkConditions(event) {
-    
+
     // prevent page refreshes and delete previous error messages (if any exist)
     event.preventDefault();
     removeErrorMessages();
@@ -28,7 +28,7 @@ function checkConditions(event) {
         // update search history
         updateSearchHistory(userInput);
         // create search history buttons
-        //updateHistoryButtons();
+        updateHistoryButtons();
         // Get the new data
         getApiData(userInput);
     }
@@ -57,9 +57,9 @@ function updateLocalStorage(locationName) {
             searchHistory[locationName] = 1;
         }
         // sort searchHistory such that highest searchCount values are the first indexed keys
-        bubbleSortHighToLow(searchHistory);
+        //bubbleSortHighToLow(searchHistory);
         // update localStorage
-            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     }
 }
 
@@ -85,6 +85,25 @@ function getApiData(city) {
                 // Populate the 5-day forecast info
         });
 }
+
+//------------------------------------------------------------------------
+$('.btn-secondary').on('click', function () {
+    let city = $(this).text();
+    // update local storage
+    updateLocalStorage(city);
+    getApiData(city);
+});
+
+/// don't need to do this if search came from a button that are already displayed
+function updateHistoryButtons(vent) { 
+    let rootEl = document.querySelector('#button-root');
+    
+    // create a button element with textContent=city and 
+
+}
+
+
+//------------------------------------------------------------------------
 
 /**
  * Determines if the city's name is an acceptable string.
