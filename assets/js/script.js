@@ -90,27 +90,25 @@ function getApiData(city) {
         .then(function (response) {
             return response.json();
         })
-            .then(function (data) {
-                console.log(data);
-                // Populate today's info
-                document.querySelector('#today-header').textContent = city + " " + dateTodayText;
+        .then(function (data) {           
                 
-    
-                // temp, wind, UV, humidity
                 // loop through the first six days of API data
                 for (let i = 0; i < 6; i++){
                     let temp = data['data'][i].temp;
                     let wind = data['data'][i].wind_spd;
-                    let uv = data['data'][i].uv;
                     let humidity = data['data'][i].rh;
                     let rainPercent = data['data'][i].pop;
                     let cloudPercent = data['data'][i].clouds;
                     let imagePath = getImagePath(rainPercent, cloudPercent);
                     // If today...
                     if (i == 0) {
+                        let uv = data['data'][i].uv;
+                        let uvSeverityClass = getUvCssClass(uv);
+                        document.querySelector('#today-header').textContent = city + " " + dateTodayText;
                         document.querySelector('#temp-today').textContent = 'Temp: ' + temp + '°F';
                         document.querySelector('#wind-today').textContent = 'Wind: ' + wind + ' mph';
-                        document.querySelector('#uv-today').textContent = 'UV Index: ' + uv;
+                        document.querySelector('#uv-today').textContent = uv;
+                        document.querySelector('#uv-today').classList.add(uvSeverityClass);
                         document.querySelector('#humidity-today').textContent = 'Humidity: ' + humidity + ' %';
                         document.querySelector('#img-today').setAttribute('src', imagePath);
                     } else {
@@ -148,7 +146,20 @@ function getImagePath(rainPercent, cloudPercent) {
     }
 }
 
-//------------------------------------------------------------------------
+function getUvCssClass(uvIndex) {
+    if (uvIndex <= 2) {
+        return 'low';
+    } else if (uvIndex <= 3) {
+        return 'medium';
+    } else if (uvIndex <= 6) {
+        return 'high';
+    } else if (uvIndex <= 8) {
+        return 'very-high';
+    } else if (uvIndex <= 11) {
+        return 'extremely-high';
+    }
+}
+
 // Not necessary if search came from a displayed history button
 /**
  * Removes all prior history buttons and dynamically creates new buttons from localStorage object 'searchHistory'.
@@ -184,7 +195,6 @@ function updateHistoryButtons() {
         getApiData(city);
     });
 }
-//------------------------------------------------------------------------
 
 /**
  * Determines if the city's name is an acceptable string.

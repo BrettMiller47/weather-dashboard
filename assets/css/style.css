@@ -4,12 +4,41 @@ header {
     min-height: 55px;
 }
 
+img {
+    width: 98px;
+    height: 98px;
+}
+
+img[src=""] {
+    display: none;
+}
+
 .custom-forecast-card {
     background: rgb(28, 46, 144);
     color: white;
 }
 
-img {
-    width: 98px;
-    height: 98px;
+.low {
+    background: green;
+    color: white;
+}
+
+.medium {
+    background: rgb(245, 245, 107);
+    color: black;
+}
+
+.high {
+    background: darkorange;
+    color: black;
+}
+
+.very-high {
+    background: red;
+    color: white;
+}
+
+.extremely-high {
+    background: purple;
+    color: white;
 }
