@@ -103,19 +103,22 @@ function getApiData(city) {
                     let wind = data['data'][i].wind_spd;
                     let uv = data['data'][i].uv;
                     let humidity = data['data'][i].rh;
+                    let rainPercent = data['data'][i].pop;
+                    let cloudPercent = data['data'][i].clouds;
+                    let imagePath = getImagePath(rainPercent, cloudPercent);
                     // If today...
                     if (i == 0) {
                         document.querySelector('#temp-today').textContent = 'Temp: ' + temp + '°F';
                         document.querySelector('#wind-today').textContent = 'Wind: ' + wind + ' mph';
                         document.querySelector('#uv-today').textContent = 'UV Index: ' + uv;
                         document.querySelector('#humidity-today').textContent = 'Humidity: ' + humidity + ' %';
-                        // image
+                        document.querySelector('#img-today').setAttribute('src', imagePath);
                     } else {
                         // update the 5-day forecast
                         document.querySelector('#temp-' + i).textContent = 'Temp: ' + temp + '°F';
                         document.querySelector('#wind-' + i).textContent = 'Wind: ' + wind + ' mph';
                         document.querySelector('#humidity-' + i).textContent = 'Humidity: ' + humidity + ' %';
-                        // image
+                        document.querySelector('#img-' + i).setAttribute('src', imagePath);
                     }
                 }
         });
