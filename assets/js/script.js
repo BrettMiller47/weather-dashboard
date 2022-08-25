@@ -97,9 +97,7 @@ function getApiData(city) {
                     let temp = data['data'][i].temp;
                     let wind = data['data'][i].wind_spd;
                     let humidity = data['data'][i].rh;
-                    let rainPercent = data['data'][i].pop;
-                    let cloudPercent = data['data'][i].clouds;
-                    let imagePath = getImagePath(rainPercent, cloudPercent);
+                    let icon = data['data'][i].weather.icon;
                     // If today...
                     if (i == 0) {
                         let uv = data['data'][i].uv;
@@ -110,42 +108,43 @@ function getApiData(city) {
                         document.querySelector('#uv-today').textContent = uv;
                         document.querySelector('#uv-today').classList.add(uvSeverityClass);
                         document.querySelector('#humidity-today').textContent = 'Humidity: ' + humidity + ' %';
-                        document.querySelector('#img-today').setAttribute('src', imagePath);
+                        document.querySelector('#img-today').setAttribute('src', 'https://www.weatherbit.io/static/img/icons/' + icon + '.png');
                     } else {
                         // update the 5-day forecast
                         document.querySelector('#temp-' + i).textContent = 'Temp: ' + temp + '°F';
                         document.querySelector('#wind-' + i).textContent = 'Wind: ' + wind + ' mph';
                         document.querySelector('#humidity-' + i).textContent = 'Humidity: ' + humidity + ' %';
-                        document.querySelector('#img-' + i).setAttribute('src', imagePath);
+                        document.querySelector('#img-' + i).setAttribute('src', 'https://www.weatherbit.io/static/img/icons/' + icon + '.png');
                     }
                 }
         });
 }
 
-function getImagePath(rainPercent, cloudPercent) {
-    let weatherTypes = {
-        'rainy': './assets/images/rain.webp',
-        'cloudy': './assets/images/cloud.png',
-        'partly-cloudy': './assets/images/partly-cloudy.png',
-        'sunny': './assets/images/sun.png'
-    }
+// function getImagePath(rainPercent, cloudPercent) {
+//     let weatherTypes = {
+//         'rainy': './assets/images/rain.webp',
+//         'cloudy': './assets/images/cloud.png',
+//         'partly-cloudy': './assets/images/partly-cloudy.png',
+//         'sunny': './assets/images/sun.png'
+//     }
     
-    // If >50% chance of rain...
-    if (rainPercent >= .5) {
-        // return the path for the rainy image
-        return weatherTypes['rainy'];
-    } else if (cloudPercent >= .75) {
-        //return the path for the cloudy image
-        return weatherTypes['cloudy'];
-    } else if (cloudPercent >= .25) {
-        //return the path for the partly-cloudy image
-        return weatherTypes['partly-cloudy'];
-    } else {
-        //return the path for the sunny image
-        return weatherTypes['sunny'];
-    }
-}
+//     // If >50% chance of rain...
+//     if (rainPercent >= .5) {
+//         // return the path for the rainy image
+//         return weatherTypes['rainy'];
+//     } else if (cloudPercent >= .75) {
+//         //return the path for the cloudy image
+//         return weatherTypes['cloudy'];
+//     } else if (cloudPercent >= .25) {
+//         //return the path for the partly-cloudy image
+//         return weatherTypes['partly-cloudy'];
+//     } else {
+//         //return the path for the sunny image
+//         return weatherTypes['sunny'];
+//     }
+// }
 
+// function to return the CSS class as a string depending on UV Index severity 
 function getUvCssClass(uvIndex) {
     if (uvIndex <= 2) {
         return 'low';
