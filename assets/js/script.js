@@ -20,6 +20,10 @@ for (let i = 1; i < 6; i++) {
 }
 
 // ---- API & Dynamic DOM section ----
+// initialize search history buttons when user opens landing page
+updateHistoryButtons();
+
+// add event listener for search button
 var searchBtnEl = document.querySelector('#search');
 searchBtnEl.addEventListener('click', checkConditions);
 
@@ -37,7 +41,7 @@ function checkConditions(event) {
     if (isAcceptableCity(userInput)) {
         // update local storage
         updateLocalStorage(userInput);
-        // create search history buttons
+        // update search history buttons
         updateHistoryButtons();
         // Get the new data
         getApiData(userInput);
@@ -47,7 +51,7 @@ function checkConditions(event) {
 // function which updates (or creates) a localStorage object 'searchHistory' where key: value == locationName: nSearches
 function updateLocalStorage(locationName) {
 
-    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'))
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
     // If searchHistory is not found in localStorage...
     if (searchHistory == null) {
@@ -115,21 +119,41 @@ function getApiData(city) {
         });
 }
 
-// event listener for previously searched locations
-$('.btn-secondary').on('click', function () {
-    let city = $(this).text();
-    // update local storage
-    updateLocalStorage(city);
-    getApiData(city);
-});
-
 //------------------------------------------------------------------------
-/// don't need to do this if search came from a button that are already displayed
-function updateHistoryButtons(vent) { 
-    let rootEl = document.querySelector('#button-root');
+// Not necessary if search came from a displayed history button
+/**
+ * Removes all prior history buttons and dynamically creates new buttons from localStorage object 'searchHistory'.
+ * @param {string} city - city that was newly searched by the user 
+ */
+function updateHistoryButtons() { 
     
-    // create a button element with textContent=city and 
+    // remove all previous buttons
+    $('.btn-secondary').remove();
 
+    // get the localStorage object 'searchHistory'
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    if (searchHistory == null) {
+        return;
+    }
+    let searchHistoryLen = Object.keys(searchHistory).length;
+
+    // For each key: value pair in 'searchHistory'
+    for (let i = 0; i < searchHistoryLen; i++) { 
+        // create a button element with textContent='city' and class='btn btn-secondary w-100 mt-3'
+        let btnEl = document.createElement('button');
+        btnEl.textContent = Object.keys(searchHistory)[i];
+        btnEl.setAttribute('class', 'btn btn-secondary w-100 mt-3');
+        // append this button to the DOM
+        let rootEl = document.querySelector('#button-root');
+        rootEl.append(btnEl);
+    }
+    // event listener for previously searched locations
+    $('.btn-secondary').on('click', function () {
+        let city = $(this).text();
+        // update local storage
+        updateLocalStorage(city);
+        getApiData(city);
+    });
 }
 //------------------------------------------------------------------------
 
