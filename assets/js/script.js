@@ -109,14 +109,40 @@ function getApiData(city) {
                         document.querySelector('#wind-today').textContent = 'Wind: ' + wind + ' mph';
                         document.querySelector('#uv-today').textContent = 'UV Index: ' + uv;
                         document.querySelector('#humidity-today').textContent = 'Humidity: ' + humidity + ' %';
+                        // image
                     } else {
                         // update the 5-day forecast
                         document.querySelector('#temp-' + i).textContent = 'Temp: ' + temp + '°F';
                         document.querySelector('#wind-' + i).textContent = 'Wind: ' + wind + ' mph';
                         document.querySelector('#humidity-' + i).textContent = 'Humidity: ' + humidity + ' %';
+                        // image
                     }
                 }
         });
+}
+
+function getImagePath(rainPercent, cloudPercent) {
+    let weatherTypes = {
+        'rainy': './assets/images/rain.webp',
+        'cloudy': './assets/images/cloud.png',
+        'partly-cloudy': './assets/images/partly-cloudy.png',
+        'sunny': './assets/images/sun.png'
+    }
+    
+    // If >50% chance of rain...
+    if (rainPercent >= .5) {
+        // return the path for the rainy image
+        return weatherTypes['rainy'];
+    } else if (cloudPercent >= .75) {
+        //return the path for the cloudy image
+        return weatherTypes['cloudy'];
+    } else if (cloudPercent >= .25) {
+        //return the path for the partly-cloudy image
+        return weatherTypes['partly-cloudy'];
+    } else {
+        //return the path for the sunny image
+        return weatherTypes['sunny'];
+    }
 }
 
 //------------------------------------------------------------------------
