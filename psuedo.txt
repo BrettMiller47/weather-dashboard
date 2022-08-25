@@ -1,7 +1,3 @@
-date section
----- update 5-day forecast dates
-
-
 getApiData()
 ---- update images
 ---- call updateHistoryButtons()

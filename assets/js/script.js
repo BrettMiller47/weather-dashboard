@@ -3,9 +3,21 @@ const today = new Date();
 const currMonth = today.getMonth();
 const currDay = today.getDate();
 const currYear = today.getFullYear();
-const dateTodayText = '(' + currMonth + "/" + currDay + "/" + currYear + ')';
+const dateTodayText = currMonth + "/" + currDay + "/" + currYear;
 const todayHeaderEl = document.querySelector('#today-header');
 todayHeaderEl.textContent = dateTodayText; 
+
+// update 5-day forecast dates
+for (let i = 1; i < 6; i++) { 
+    let iDate = new Date();
+    iDate.setDate(today.getDate() + i);
+    let iMonth = iDate.getMonth();
+    let iDay = iDate.getDate();
+    let iYear = iDate.getFullYear();
+    let dateText = iMonth + "/" + iDay + "/" + iYear;
+    let dateEl = document.querySelector('#date-' + i);
+    dateEl.textContent = dateText;
+}
 
 // ---- API & Dynamic DOM section ----
 var searchBtnEl = document.querySelector('#search');
