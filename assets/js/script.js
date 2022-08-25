@@ -3,7 +3,7 @@ const today = new Date();
 const currMonth = today.getMonth();
 const currDay = today.getDate();
 const currYear = today.getFullYear();
-const dateTodayText = currMonth + "/" + currDay + "/" + currYear;
+const dateTodayText = "(" + currMonth + "/" + currDay + "/" + currYear + ")";
 const todayHeaderEl = document.querySelector('#today-header');
 todayHeaderEl.textContent = dateTodayText; 
 
